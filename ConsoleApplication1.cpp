@@ -1,12 +1,12 @@
 ﻿
 #include <iostream>
-
+#include <math.h>
 using namespace std;
 
 int main()
 { // float (скорость) (время работы насоса в сутки) (КПД) (свободный напор) (коэф Дарси) (суточный напор потребления)
 	setlocale(LC_ALL, "RU");
-	float t, k, Hq, Hs, D, L, d, V;
+	float t, k, Hq, Hs, D, L, d, V, H, hl, hm, U;
 		cout << "Введите данные о насосе: длину, диаметр, суточный напор потребления";
 	cin >> L >> d >> V;
 	cout << "Обозначьте время работы насоса в сутки";
@@ -17,5 +17,16 @@ int main()
 	cin >> k >> D;
 
 	float Q = V / (3600 * t);
+	U = 1.27 * (Q / pow(d, 2));
+	hl = D * (L / d) * (pow(U, 2) / 19.6);
+	hm = 0.1 * hl;
+	H = Hq + hl + hm + Hs;
+
 	float N = (9.81 * Q * H) / k;
+	
+	/*cout << hm << " ";
+	cout << H << " ";
+	cout << hl << " ";
+	cout << U << " "*/
+		cout << "Мощность насоса: " << N;
 }
